@@ -59,6 +59,7 @@ class CreateOrganizationsTable extends Migration
             $table->longText('embed_video')->nullable();
             $table->string('tags')->nullable();
             $table->string('status')->nullable();
+            $table->boolean('featured')->default(0)->nullable();
             $table->longText('comments')->nullable();
             $table->timestamps();
             $table->softDeletes();

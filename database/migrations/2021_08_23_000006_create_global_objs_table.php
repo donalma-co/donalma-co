@@ -4,14 +4,14 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFaqQuestionsTable extends Migration
+class CreateGlobalObjsTable extends Migration
 {
     public function up()
     {
-        Schema::create('faq_questions', function (Blueprint $table) {
+        Schema::create('global_objs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->longText('question')->nullable();
-            $table->longText('answer')->nullable();
+            $table->string('name')->nullable();
+            $table->longText('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -32,7 +32,7 @@
                         {{ trans('cruds.organization.fields.name') }}
                     </th>
                     <th>
-                        {{ trans('cruds.organization.fields.type') }}
+                        {{ trans('cruds.organization.fields.organization_type') }}
                     </th>
                     <th>
                         {{ trans('cruds.organization.fields.nit') }}
@@ -195,6 +195,9 @@
                     </th>
                     <th>
                         {{ trans('cruds.organization.fields.status') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.organization.fields.featured') }}
                     </th>
                     <th>
                         {{ trans('cruds.organization.fields.comments') }}
@@ -400,6 +403,8 @@
                         </select>
                     </td>
                     <td>
+                    </td>
+                    <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
@@ -459,7 +464,7 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'name', name: 'name' },
-{ data: 'type_name', name: 'type.name' },
+{ data: 'organization_type', name: 'organization_types.name' },
 { data: 'nit', name: 'nit' },
 { data: 'legal_representant', name: 'legal_representant' },
 { data: 'dcoumenttype_name', name: 'dcoumenttype.name' },
@@ -514,6 +519,7 @@
 { data: 'logo', name: 'logo', sortable: false, searchable: false },
 { data: 'tags', name: 'tags' },
 { data: 'status', name: 'status' },
+{ data: 'featured', name: 'featured' },
 { data: 'comments', name: 'comments' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],

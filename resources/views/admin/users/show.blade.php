@@ -33,10 +33,50 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.user.fields.documenttype') }}
+                        </th>
+                        <td>
+                            {{ $user->documenttype->name ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.document') }}
+                        </th>
+                        <td>
+                            {{ $user->document }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.organization') }}
+                        </th>
+                        <td>
+                            {{ $user->organization->name ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.two_factor') }}
+                        </th>
+                        <td>
+                            <input type="checkbox" disabled="disabled" {{ $user->two_factor ? 'checked' : '' }}>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.user.fields.email') }}
                         </th>
                         <td>
                             {{ $user->email }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.phone') }}
+                        </th>
+                        <td>
+                            {{ $user->phone }}
                         </td>
                     </tr>
                     <tr>
@@ -63,6 +103,14 @@
                             @foreach($user->roles as $key => $roles)
                                 <span class="label label-info">{{ $roles->title }}</span>
                             @endforeach
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.featured') }}
+                        </th>
+                        <td>
+                            <input type="checkbox" disabled="disabled" {{ $user->featured ? 'checked' : '' }}>
                         </td>
                     </tr>
                 </tbody>

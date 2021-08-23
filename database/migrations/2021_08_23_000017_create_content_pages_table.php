@@ -13,6 +13,8 @@ class CreateContentPagesTable extends Migration
             $table->string('title')->nullable();
             $table->longText('page_text')->nullable();
             $table->longText('excerpt')->nullable();
+            $table->string('comments')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -13,27 +13,37 @@
                 <label class="required" for="name">{{ trans('cruds.organization.fields.name') }}</label>
                 <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', '') }}" required>
                 @if($errors->has('name'))
-                    <span class="text-danger">{{ $errors->first('name') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('name') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.name_helper') }}</span>
             </div>
             <div class="form-group">
-                <label class="required" for="type_id">{{ trans('cruds.organization.fields.type') }}</label>
-                <select class="form-control select2 {{ $errors->has('type') ? 'is-invalid' : '' }}" name="type_id" id="type_id" required>
-                    @foreach($types as $id => $entry)
-                        <option value="{{ $id }}" {{ old('type_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                <label class="required" for="organization_types">{{ trans('cruds.organization.fields.organization_type') }}</label>
+                <div style="padding-bottom: 4px">
+                    <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
+                    <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
+                </div>
+                <select class="form-control select2 {{ $errors->has('organization_types') ? 'is-invalid' : '' }}" name="organization_types[]" id="organization_types" multiple required>
+                    @foreach($organization_types as $id => $organization_type)
+                        <option value="{{ $id }}" {{ in_array($id, old('organization_types', [])) ? 'selected' : '' }}>{{ $organization_type }}</option>
                     @endforeach
                 </select>
-                @if($errors->has('type'))
-                    <span class="text-danger">{{ $errors->first('type') }}</span>
+                @if($errors->has('organization_types'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('organization_types') }}
+                    </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.organization.fields.type_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.organization.fields.organization_type_helper') }}</span>
             </div>
             <div class="form-group">
                 <label class="required" for="nit">{{ trans('cruds.organization.fields.nit') }}</label>
                 <input class="form-control {{ $errors->has('nit') ? 'is-invalid' : '' }}" type="number" name="nit" id="nit" value="{{ old('nit', '') }}" step="1" required>
                 @if($errors->has('nit'))
-                    <span class="text-danger">{{ $errors->first('nit') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('nit') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.nit_helper') }}</span>
             </div>
@@ -41,7 +51,9 @@
                 <label class="required" for="legal_representant">{{ trans('cruds.organization.fields.legal_representant') }}</label>
                 <input class="form-control {{ $errors->has('legal_representant') ? 'is-invalid' : '' }}" type="text" name="legal_representant" id="legal_representant" value="{{ old('legal_representant', '') }}" required>
                 @if($errors->has('legal_representant'))
-                    <span class="text-danger">{{ $errors->first('legal_representant') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('legal_representant') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.legal_representant_helper') }}</span>
             </div>
@@ -53,7 +65,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('dcoumenttype'))
-                    <span class="text-danger">{{ $errors->first('dcoumenttype') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('dcoumenttype') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.dcoumenttype_helper') }}</span>
             </div>
@@ -61,7 +75,9 @@
                 <label class="required" for="document">{{ trans('cruds.organization.fields.document') }}</label>
                 <input class="form-control {{ $errors->has('document') ? 'is-invalid' : '' }}" type="number" name="document" id="document" value="{{ old('document', '') }}" step="1" required>
                 @if($errors->has('document'))
-                    <span class="text-danger">{{ $errors->first('document') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('document') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.document_helper') }}</span>
             </div>
@@ -69,7 +85,9 @@
                 <label class="required" for="cargo">{{ trans('cruds.organization.fields.cargo') }}</label>
                 <input class="form-control {{ $errors->has('cargo') ? 'is-invalid' : '' }}" type="text" name="cargo" id="cargo" value="{{ old('cargo', '') }}" required>
                 @if($errors->has('cargo'))
-                    <span class="text-danger">{{ $errors->first('cargo') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('cargo') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.cargo_helper') }}</span>
             </div>
@@ -77,7 +95,9 @@
                 <label class="required" for="address">{{ trans('cruds.organization.fields.address') }}</label>
                 <input class="form-control {{ $errors->has('address') ? 'is-invalid' : '' }}" type="text" name="address" id="address" value="{{ old('address', '') }}" required>
                 @if($errors->has('address'))
-                    <span class="text-danger">{{ $errors->first('address') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('address') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.address_helper') }}</span>
             </div>
@@ -89,7 +109,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('department'))
-                    <span class="text-danger">{{ $errors->first('department') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('department') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.department_helper') }}</span>
             </div>
@@ -101,7 +123,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('city'))
-                    <span class="text-danger">{{ $errors->first('city') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('city') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.city_helper') }}</span>
             </div>
@@ -109,7 +133,9 @@
                 <label class="required" for="phone">{{ trans('cruds.organization.fields.phone') }}</label>
                 <input class="form-control {{ $errors->has('phone') ? 'is-invalid' : '' }}" type="text" name="phone" id="phone" value="{{ old('phone', '') }}" required>
                 @if($errors->has('phone'))
-                    <span class="text-danger">{{ $errors->first('phone') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('phone') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.phone_helper') }}</span>
             </div>
@@ -117,7 +143,9 @@
                 <label for="main_phone_ext">{{ trans('cruds.organization.fields.main_phone_ext') }}</label>
                 <input class="form-control {{ $errors->has('main_phone_ext') ? 'is-invalid' : '' }}" type="text" name="main_phone_ext" id="main_phone_ext" value="{{ old('main_phone_ext', '') }}">
                 @if($errors->has('main_phone_ext'))
-                    <span class="text-danger">{{ $errors->first('main_phone_ext') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('main_phone_ext') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.main_phone_ext_helper') }}</span>
             </div>
@@ -125,7 +153,9 @@
                 <label for="postal_code">{{ trans('cruds.organization.fields.postal_code') }}</label>
                 <input class="form-control {{ $errors->has('postal_code') ? 'is-invalid' : '' }}" type="text" name="postal_code" id="postal_code" value="{{ old('postal_code', '') }}">
                 @if($errors->has('postal_code'))
-                    <span class="text-danger">{{ $errors->first('postal_code') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('postal_code') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.postal_code_helper') }}</span>
             </div>
@@ -133,7 +163,9 @@
                 <label class="required" for="email">{{ trans('cruds.organization.fields.email') }}</label>
                 <input class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" type="email" name="email" id="email" value="{{ old('email') }}" required>
                 @if($errors->has('email'))
-                    <span class="text-danger">{{ $errors->first('email') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('email') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.email_helper') }}</span>
             </div>
@@ -141,7 +173,9 @@
                 <label for="finnancial_contact">{{ trans('cruds.organization.fields.finnancial_contact') }}</label>
                 <input class="form-control {{ $errors->has('finnancial_contact') ? 'is-invalid' : '' }}" type="text" name="finnancial_contact" id="finnancial_contact" value="{{ old('finnancial_contact', '') }}">
                 @if($errors->has('finnancial_contact'))
-                    <span class="text-danger">{{ $errors->first('finnancial_contact') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('finnancial_contact') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.finnancial_contact_helper') }}</span>
             </div>
@@ -149,7 +183,9 @@
                 <label for="finnancial_contact_email">{{ trans('cruds.organization.fields.finnancial_contact_email') }}</label>
                 <input class="form-control {{ $errors->has('finnancial_contact_email') ? 'is-invalid' : '' }}" type="email" name="finnancial_contact_email" id="finnancial_contact_email" value="{{ old('finnancial_contact_email') }}">
                 @if($errors->has('finnancial_contact_email'))
-                    <span class="text-danger">{{ $errors->first('finnancial_contact_email') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('finnancial_contact_email') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.finnancial_contact_email_helper') }}</span>
             </div>
@@ -157,7 +193,9 @@
                 <label for="finnancial_contact_phone">{{ trans('cruds.organization.fields.finnancial_contact_phone') }}</label>
                 <input class="form-control {{ $errors->has('finnancial_contact_phone') ? 'is-invalid' : '' }}" type="number" name="finnancial_contact_phone" id="finnancial_contact_phone" value="{{ old('finnancial_contact_phone', '') }}" step="1">
                 @if($errors->has('finnancial_contact_phone'))
-                    <span class="text-danger">{{ $errors->first('finnancial_contact_phone') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('finnancial_contact_phone') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.finnancial_contact_phone_helper') }}</span>
             </div>
@@ -165,7 +203,9 @@
                 <label for="finnancial_contact_ext">{{ trans('cruds.organization.fields.finnancial_contact_ext') }}</label>
                 <input class="form-control {{ $errors->has('finnancial_contact_ext') ? 'is-invalid' : '' }}" type="text" name="finnancial_contact_ext" id="finnancial_contact_ext" value="{{ old('finnancial_contact_ext', '') }}">
                 @if($errors->has('finnancial_contact_ext'))
-                    <span class="text-danger">{{ $errors->first('finnancial_contact_ext') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('finnancial_contact_ext') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.finnancial_contact_ext_helper') }}</span>
             </div>
@@ -173,7 +213,9 @@
                 <label for="contracting_contact">{{ trans('cruds.organization.fields.contracting_contact') }}</label>
                 <input class="form-control {{ $errors->has('contracting_contact') ? 'is-invalid' : '' }}" type="text" name="contracting_contact" id="contracting_contact" value="{{ old('contracting_contact', '') }}">
                 @if($errors->has('contracting_contact'))
-                    <span class="text-danger">{{ $errors->first('contracting_contact') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('contracting_contact') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.contracting_contact_helper') }}</span>
             </div>
@@ -181,7 +223,9 @@
                 <label for="contracting_contact_email">{{ trans('cruds.organization.fields.contracting_contact_email') }}</label>
                 <input class="form-control {{ $errors->has('contracting_contact_email') ? 'is-invalid' : '' }}" type="email" name="contracting_contact_email" id="contracting_contact_email" value="{{ old('contracting_contact_email') }}">
                 @if($errors->has('contracting_contact_email'))
-                    <span class="text-danger">{{ $errors->first('contracting_contact_email') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('contracting_contact_email') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.contracting_contact_email_helper') }}</span>
             </div>
@@ -189,7 +233,9 @@
                 <label for="contracting_contact_phone">{{ trans('cruds.organization.fields.contracting_contact_phone') }}</label>
                 <input class="form-control {{ $errors->has('contracting_contact_phone') ? 'is-invalid' : '' }}" type="text" name="contracting_contact_phone" id="contracting_contact_phone" value="{{ old('contracting_contact_phone', '') }}">
                 @if($errors->has('contracting_contact_phone'))
-                    <span class="text-danger">{{ $errors->first('contracting_contact_phone') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('contracting_contact_phone') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.contracting_contact_phone_helper') }}</span>
             </div>
@@ -197,7 +243,9 @@
                 <label for="contracting_contact_ext">{{ trans('cruds.organization.fields.contracting_contact_ext') }}</label>
                 <input class="form-control {{ $errors->has('contracting_contact_ext') ? 'is-invalid' : '' }}" type="text" name="contracting_contact_ext" id="contracting_contact_ext" value="{{ old('contracting_contact_ext', '') }}">
                 @if($errors->has('contracting_contact_ext'))
-                    <span class="text-danger">{{ $errors->first('contracting_contact_ext') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('contracting_contact_ext') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.contracting_contact_ext_helper') }}</span>
             </div>
@@ -205,7 +253,9 @@
                 <label for="electronic_invoice_contact">{{ trans('cruds.organization.fields.electronic_invoice_contact') }}</label>
                 <input class="form-control {{ $errors->has('electronic_invoice_contact') ? 'is-invalid' : '' }}" type="text" name="electronic_invoice_contact" id="electronic_invoice_contact" value="{{ old('electronic_invoice_contact', '') }}">
                 @if($errors->has('electronic_invoice_contact'))
-                    <span class="text-danger">{{ $errors->first('electronic_invoice_contact') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('electronic_invoice_contact') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.electronic_invoice_contact_helper') }}</span>
             </div>
@@ -213,7 +263,9 @@
                 <label for="electronic_invoice_email">{{ trans('cruds.organization.fields.electronic_invoice_email') }}</label>
                 <input class="form-control {{ $errors->has('electronic_invoice_email') ? 'is-invalid' : '' }}" type="email" name="electronic_invoice_email" id="electronic_invoice_email" value="{{ old('electronic_invoice_email') }}">
                 @if($errors->has('electronic_invoice_email'))
-                    <span class="text-danger">{{ $errors->first('electronic_invoice_email') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('electronic_invoice_email') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.electronic_invoice_email_helper') }}</span>
             </div>
@@ -221,7 +273,9 @@
                 <label for="electronic_invoice_phone">{{ trans('cruds.organization.fields.electronic_invoice_phone') }}</label>
                 <input class="form-control {{ $errors->has('electronic_invoice_phone') ? 'is-invalid' : '' }}" type="number" name="electronic_invoice_phone" id="electronic_invoice_phone" value="{{ old('electronic_invoice_phone', '') }}" step="1">
                 @if($errors->has('electronic_invoice_phone'))
-                    <span class="text-danger">{{ $errors->first('electronic_invoice_phone') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('electronic_invoice_phone') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.electronic_invoice_phone_helper') }}</span>
             </div>
@@ -229,7 +283,9 @@
                 <label for="electronic_invoice_ext">{{ trans('cruds.organization.fields.electronic_invoice_ext') }}</label>
                 <input class="form-control {{ $errors->has('electronic_invoice_ext') ? 'is-invalid' : '' }}" type="text" name="electronic_invoice_ext" id="electronic_invoice_ext" value="{{ old('electronic_invoice_ext', '') }}">
                 @if($errors->has('electronic_invoice_ext'))
-                    <span class="text-danger">{{ $errors->first('electronic_invoice_ext') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('electronic_invoice_ext') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.electronic_invoice_ext_helper') }}</span>
             </div>
@@ -237,7 +293,9 @@
                 <label for="cash_banks_contact">{{ trans('cruds.organization.fields.cash_banks_contact') }}</label>
                 <input class="form-control {{ $errors->has('cash_banks_contact') ? 'is-invalid' : '' }}" type="text" name="cash_banks_contact" id="cash_banks_contact" value="{{ old('cash_banks_contact', '') }}">
                 @if($errors->has('cash_banks_contact'))
-                    <span class="text-danger">{{ $errors->first('cash_banks_contact') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('cash_banks_contact') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.cash_banks_contact_helper') }}</span>
             </div>
@@ -245,7 +303,9 @@
                 <label for="cash_banks_email">{{ trans('cruds.organization.fields.cash_banks_email') }}</label>
                 <input class="form-control {{ $errors->has('cash_banks_email') ? 'is-invalid' : '' }}" type="email" name="cash_banks_email" id="cash_banks_email" value="{{ old('cash_banks_email') }}">
                 @if($errors->has('cash_banks_email'))
-                    <span class="text-danger">{{ $errors->first('cash_banks_email') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('cash_banks_email') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.cash_banks_email_helper') }}</span>
             </div>
@@ -253,7 +313,9 @@
                 <label for="cash_banks_phone">{{ trans('cruds.organization.fields.cash_banks_phone') }}</label>
                 <input class="form-control {{ $errors->has('cash_banks_phone') ? 'is-invalid' : '' }}" type="number" name="cash_banks_phone" id="cash_banks_phone" value="{{ old('cash_banks_phone', '') }}" step="1">
                 @if($errors->has('cash_banks_phone'))
-                    <span class="text-danger">{{ $errors->first('cash_banks_phone') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('cash_banks_phone') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.cash_banks_phone_helper') }}</span>
             </div>
@@ -261,7 +323,9 @@
                 <label for="cash_banks_ext">{{ trans('cruds.organization.fields.cash_banks_ext') }}</label>
                 <input class="form-control {{ $errors->has('cash_banks_ext') ? 'is-invalid' : '' }}" type="text" name="cash_banks_ext" id="cash_banks_ext" value="{{ old('cash_banks_ext', '') }}">
                 @if($errors->has('cash_banks_ext'))
-                    <span class="text-danger">{{ $errors->first('cash_banks_ext') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('cash_banks_ext') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.cash_banks_ext_helper') }}</span>
             </div>
@@ -269,7 +333,9 @@
                 <label for="electronic_invoice_authorized_mail">{{ trans('cruds.organization.fields.electronic_invoice_authorized_mail') }}</label>
                 <input class="form-control {{ $errors->has('electronic_invoice_authorized_mail') ? 'is-invalid' : '' }}" type="email" name="electronic_invoice_authorized_mail" id="electronic_invoice_authorized_mail" value="{{ old('electronic_invoice_authorized_mail') }}">
                 @if($errors->has('electronic_invoice_authorized_mail'))
-                    <span class="text-danger">{{ $errors->first('electronic_invoice_authorized_mail') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('electronic_invoice_authorized_mail') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.electronic_invoice_authorized_mail_helper') }}</span>
             </div>
@@ -282,7 +348,9 @@
                     </div>
                 @endforeach
                 @if($errors->has('requiere_orden_de_compra'))
-                    <span class="text-danger">{{ $errors->first('requiere_orden_de_compra') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('requiere_orden_de_compra') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.requiere_orden_de_compra_helper') }}</span>
             </div>
@@ -290,7 +358,9 @@
                 <label for="limit_day_to_invoice">{{ trans('cruds.organization.fields.limit_day_to_invoice') }}</label>
                 <input class="form-control {{ $errors->has('limit_day_to_invoice') ? 'is-invalid' : '' }}" type="number" name="limit_day_to_invoice" id="limit_day_to_invoice" value="{{ old('limit_day_to_invoice', '') }}" step="1">
                 @if($errors->has('limit_day_to_invoice'))
-                    <span class="text-danger">{{ $errors->first('limit_day_to_invoice') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('limit_day_to_invoice') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.limit_day_to_invoice_helper') }}</span>
             </div>
@@ -301,7 +371,9 @@
                     <label class="form-check-label" for="national_tax_responsible">{{ trans('cruds.organization.fields.national_tax_responsible') }}</label>
                 </div>
                 @if($errors->has('national_tax_responsible'))
-                    <span class="text-danger">{{ $errors->first('national_tax_responsible') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('national_tax_responsible') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.national_tax_responsible_helper') }}</span>
             </div>
@@ -312,7 +384,9 @@
                     <label class="form-check-label" for="local_tax_responsible">{{ trans('cruds.organization.fields.local_tax_responsible') }}</label>
                 </div>
                 @if($errors->has('local_tax_responsible'))
-                    <span class="text-danger">{{ $errors->first('local_tax_responsible') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('local_tax_responsible') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.local_tax_responsible_helper') }}</span>
             </div>
@@ -320,7 +394,9 @@
                 <label for="local_tax_ammount">{{ trans('cruds.organization.fields.local_tax_ammount') }}</label>
                 <input class="form-control {{ $errors->has('local_tax_ammount') ? 'is-invalid' : '' }}" type="number" name="local_tax_ammount" id="local_tax_ammount" value="{{ old('local_tax_ammount', '') }}" step="0.01">
                 @if($errors->has('local_tax_ammount'))
-                    <span class="text-danger">{{ $errors->first('local_tax_ammount') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('local_tax_ammount') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.local_tax_ammount_helper') }}</span>
             </div>
@@ -331,7 +407,9 @@
                     <label class="form-check-label" for="big_taxpayer">{{ trans('cruds.organization.fields.big_taxpayer') }}</label>
                 </div>
                 @if($errors->has('big_taxpayer'))
-                    <span class="text-danger">{{ $errors->first('big_taxpayer') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('big_taxpayer') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.big_taxpayer_helper') }}</span>
             </div>
@@ -339,7 +417,9 @@
                 <label for="big_taxpayer_resolution">{{ trans('cruds.organization.fields.big_taxpayer_resolution') }}</label>
                 <input class="form-control {{ $errors->has('big_taxpayer_resolution') ? 'is-invalid' : '' }}" type="text" name="big_taxpayer_resolution" id="big_taxpayer_resolution" value="{{ old('big_taxpayer_resolution', '') }}">
                 @if($errors->has('big_taxpayer_resolution'))
-                    <span class="text-danger">{{ $errors->first('big_taxpayer_resolution') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('big_taxpayer_resolution') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.big_taxpayer_resolution_helper') }}</span>
             </div>
@@ -350,7 +430,9 @@
                     <label class="form-check-label" for="seft_taxreteiner">{{ trans('cruds.organization.fields.seft_taxreteiner') }}</label>
                 </div>
                 @if($errors->has('seft_taxreteiner'))
-                    <span class="text-danger">{{ $errors->first('seft_taxreteiner') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('seft_taxreteiner') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.seft_taxreteiner_helper') }}</span>
             </div>
@@ -358,7 +440,9 @@
                 <label for="seft_taxreteiner_resolution">{{ trans('cruds.organization.fields.seft_taxreteiner_resolution') }}</label>
                 <input class="form-control {{ $errors->has('seft_taxreteiner_resolution') ? 'is-invalid' : '' }}" type="text" name="seft_taxreteiner_resolution" id="seft_taxreteiner_resolution" value="{{ old('seft_taxreteiner_resolution', '') }}">
                 @if($errors->has('seft_taxreteiner_resolution'))
-                    <span class="text-danger">{{ $errors->first('seft_taxreteiner_resolution') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('seft_taxreteiner_resolution') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.seft_taxreteiner_resolution_helper') }}</span>
             </div>
@@ -369,7 +453,9 @@
                     <label class="form-check-label" for="rst_tax">{{ trans('cruds.organization.fields.rst_tax') }}</label>
                 </div>
                 @if($errors->has('rst_tax'))
-                    <span class="text-danger">{{ $errors->first('rst_tax') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('rst_tax') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.rst_tax_helper') }}</span>
             </div>
@@ -380,7 +466,9 @@
                     <label class="form-check-label" for="donation_certificate_issuer">{{ trans('cruds.organization.fields.donation_certificate_issuer') }}</label>
                 </div>
                 @if($errors->has('donation_certificate_issuer'))
-                    <span class="text-danger">{{ $errors->first('donation_certificate_issuer') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('donation_certificate_issuer') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.donation_certificate_issuer_helper') }}</span>
             </div>
@@ -393,7 +481,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('payment_collection_time'))
-                    <span class="text-danger">{{ $errors->first('payment_collection_time') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('payment_collection_time') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.payment_collection_time_helper') }}</span>
             </div>
@@ -404,7 +494,9 @@
                     <label class="form-check-label" for="disclaimer">{{ trans('cruds.organization.fields.disclaimer') }}</label>
                 </div>
                 @if($errors->has('disclaimer'))
-                    <span class="text-danger">{{ $errors->first('disclaimer') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('disclaimer') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.disclaimer_helper') }}</span>
             </div>
@@ -415,7 +507,9 @@
                     <label class="form-check-label" for="information_privacy_check">{{ trans('cruds.organization.fields.information_privacy_check') }}</label>
                 </div>
                 @if($errors->has('information_privacy_check'))
-                    <span class="text-danger">{{ $errors->first('information_privacy_check') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('information_privacy_check') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.information_privacy_check_helper') }}</span>
             </div>
@@ -424,7 +518,9 @@
                 <div class="needsclick dropzone {{ $errors->has('cc_file') ? 'is-invalid' : '' }}" id="cc_file-dropzone">
                 </div>
                 @if($errors->has('cc_file'))
-                    <span class="text-danger">{{ $errors->first('cc_file') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('cc_file') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.cc_file_helper') }}</span>
             </div>
@@ -433,7 +529,9 @@
                 <div class="needsclick dropzone {{ $errors->has('rl_file') ? 'is-invalid' : '' }}" id="rl_file-dropzone">
                 </div>
                 @if($errors->has('rl_file'))
-                    <span class="text-danger">{{ $errors->first('rl_file') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('rl_file') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.rl_file_helper') }}</span>
             </div>
@@ -442,7 +540,9 @@
                 <div class="needsclick dropzone {{ $errors->has('tp_file') ? 'is-invalid' : '' }}" id="tp_file-dropzone">
                 </div>
                 @if($errors->has('tp_file'))
-                    <span class="text-danger">{{ $errors->first('tp_file') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('tp_file') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.tp_file_helper') }}</span>
             </div>
@@ -451,7 +551,9 @@
                 <div class="needsclick dropzone {{ $errors->has('ar_file') ? 'is-invalid' : '' }}" id="ar_file-dropzone">
                 </div>
                 @if($errors->has('ar_file'))
-                    <span class="text-danger">{{ $errors->first('ar_file') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('ar_file') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.ar_file_helper') }}</span>
             </div>
@@ -459,7 +561,9 @@
                 <label for="bc_file">{{ trans('cruds.organization.fields.bc_file') }}</label>
                 <input class="form-control {{ $errors->has('bc_file') ? 'is-invalid' : '' }}" type="text" name="bc_file" id="bc_file" value="{{ old('bc_file', '') }}">
                 @if($errors->has('bc_file'))
-                    <span class="text-danger">{{ $errors->first('bc_file') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('bc_file') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.bc_file_helper') }}</span>
             </div>
@@ -467,7 +571,9 @@
                 <label for="short_description">{{ trans('cruds.organization.fields.short_description') }}</label>
                 <textarea class="form-control {{ $errors->has('short_description') ? 'is-invalid' : '' }}" name="short_description" id="short_description">{{ old('short_description') }}</textarea>
                 @if($errors->has('short_description'))
-                    <span class="text-danger">{{ $errors->first('short_description') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('short_description') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.short_description_helper') }}</span>
             </div>
@@ -475,7 +581,9 @@
                 <label for="long_description">{{ trans('cruds.organization.fields.long_description') }}</label>
                 <input class="form-control {{ $errors->has('long_description') ? 'is-invalid' : '' }}" type="text" name="long_description" id="long_description" value="{{ old('long_description', '') }}">
                 @if($errors->has('long_description'))
-                    <span class="text-danger">{{ $errors->first('long_description') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('long_description') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.long_description_helper') }}</span>
             </div>
@@ -483,7 +591,9 @@
                 <label for="webpage">{{ trans('cruds.organization.fields.webpage') }}</label>
                 <input class="form-control {{ $errors->has('webpage') ? 'is-invalid' : '' }}" type="text" name="webpage" id="webpage" value="{{ old('webpage', '') }}">
                 @if($errors->has('webpage'))
-                    <span class="text-danger">{{ $errors->first('webpage') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('webpage') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.webpage_helper') }}</span>
             </div>
@@ -492,7 +602,9 @@
                 <div class="needsclick dropzone {{ $errors->has('logo') ? 'is-invalid' : '' }}" id="logo-dropzone">
                 </div>
                 @if($errors->has('logo'))
-                    <span class="text-danger">{{ $errors->first('logo') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('logo') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.logo_helper') }}</span>
             </div>
@@ -500,7 +612,9 @@
                 <label for="embed_map">{{ trans('cruds.organization.fields.embed_map') }}</label>
                 <textarea class="form-control ckeditor {{ $errors->has('embed_map') ? 'is-invalid' : '' }}" name="embed_map" id="embed_map">{!! old('embed_map') !!}</textarea>
                 @if($errors->has('embed_map'))
-                    <span class="text-danger">{{ $errors->first('embed_map') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('embed_map') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.embed_map_helper') }}</span>
             </div>
@@ -508,7 +622,9 @@
                 <label for="embed_video">{{ trans('cruds.organization.fields.embed_video') }}</label>
                 <textarea class="form-control ckeditor {{ $errors->has('embed_video') ? 'is-invalid' : '' }}" name="embed_video" id="embed_video">{!! old('embed_video') !!}</textarea>
                 @if($errors->has('embed_video'))
-                    <span class="text-danger">{{ $errors->first('embed_video') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('embed_video') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.embed_video_helper') }}</span>
             </div>
@@ -516,7 +632,9 @@
                 <label for="tags">{{ trans('cruds.organization.fields.tags') }}</label>
                 <input class="form-control {{ $errors->has('tags') ? 'is-invalid' : '' }}" type="text" name="tags" id="tags" value="{{ old('tags', '') }}">
                 @if($errors->has('tags'))
-                    <span class="text-danger">{{ $errors->first('tags') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('tags') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.tags_helper') }}</span>
             </div>
@@ -529,15 +647,32 @@
                     @endforeach
                 </select>
                 @if($errors->has('status'))
-                    <span class="text-danger">{{ $errors->first('status') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('status') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.status_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <div class="form-check {{ $errors->has('featured') ? 'is-invalid' : '' }}">
+                    <input type="hidden" name="featured" value="0">
+                    <input class="form-check-input" type="checkbox" name="featured" id="featured" value="1" {{ old('featured', 0) == 1 ? 'checked' : '' }}>
+                    <label class="form-check-label" for="featured">{{ trans('cruds.organization.fields.featured') }}</label>
+                </div>
+                @if($errors->has('featured'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('featured') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.organization.fields.featured_helper') }}</span>
             </div>
             <div class="form-group">
                 <label for="comments">{{ trans('cruds.organization.fields.comments') }}</label>
                 <textarea class="form-control {{ $errors->has('comments') ? 'is-invalid' : '' }}" name="comments" id="comments">{{ old('comments') }}</textarea>
                 @if($errors->has('comments'))
-                    <span class="text-danger">{{ $errors->first('comments') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('comments') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.organization.fields.comments_helper') }}</span>
             </div>

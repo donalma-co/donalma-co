@@ -20,13 +20,13 @@ class OrganizationsApiController extends Controller
     {
         abort_if(Gate::denies('organization_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new OrganizationResource(Organization::with(['type', 'dcoumenttype', 'department', 'city'])->get());
+        return new OrganizationResource(Organization::with(['organization_types', 'dcoumenttype', 'department', 'city'])->get());
     }
 
     public function store(StoreOrganizationRequest $request)
     {
         $organization = Organization::create($request->all());
-
+        $organization->organization_types()->sync($request->input('organization_types', []));
         if ($request->input('cc_file', false)) {
             $organization->addMedia(storage_path('tmp/uploads/' . basename($request->input('cc_file'))))->toMediaCollection('cc_file');
         }
@@ -56,13 +56,13 @@ class OrganizationsApiController extends Controller
     {
         abort_if(Gate::denies('organization_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new OrganizationResource($organization->load(['type', 'dcoumenttype', 'department', 'city']));
+        return new OrganizationResource($organization->load(['organization_types', 'dcoumenttype', 'department', 'city']));
     }
 
     public function update(UpdateOrganizationRequest $request, Organization $organization)
     {
         $organization->update($request->all());
-
+        $organization->organization_types()->sync($request->input('organization_types', []));
         if ($request->input('cc_file', false)) {
             if (!$organization->cc_file || $request->input('cc_file') !== $organization->cc_file->file_name) {
                 if ($organization->cc_file) {

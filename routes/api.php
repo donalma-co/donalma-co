@@ -20,12 +20,6 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     Route::post('content-pages/media', 'ContentPageApiController@storeMedia')->name('content-pages.storeMedia');
     Route::apiResource('content-pages', 'ContentPageApiController');
 
-    // Faq Category
-    Route::apiResource('faq-categories', 'FaqCategoryApiController');
-
-    // Faq Question
-    Route::apiResource('faq-questions', 'FaqQuestionApiController');
-
     // Departments
     Route::apiResource('departments', 'DepartmentsApiController');
 
@@ -56,4 +50,11 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
 
     // Automatic Debts
     Route::apiResource('automatic-debts', 'AutomaticDebtsApiController');
+
+    // Countries
+    Route::apiResource('countries', 'CountriesApiController');
+
+    // Events
+    Route::post('events/media', 'EventsApiController@storeMedia')->name('events.storeMedia');
+    Route::apiResource('events', 'EventsApiController');
 });

@@ -28,8 +28,12 @@ class ContentPageApiController extends Controller
         $contentPage = ContentPage::create($request->all());
         $contentPage->categories()->sync($request->input('categories', []));
         $contentPage->tags()->sync($request->input('tags', []));
-        if ($request->input('featured_image', false)) {
-            $contentPage->addMedia(storage_path('tmp/uploads/' . basename($request->input('featured_image'))))->toMediaCollection('featured_image');
+        if ($request->input('image', false)) {
+            $contentPage->addMedia(storage_path('tmp/uploads/' . basename($request->input('image'))))->toMediaCollection('image');
+        }
+
+        if ($request->input('file', false)) {
+            $contentPage->addMedia(storage_path('tmp/uploads/' . basename($request->input('file'))))->toMediaCollection('file');
         }
 
         return (new ContentPageResource($contentPage))
@@ -49,15 +53,26 @@ class ContentPageApiController extends Controller
         $contentPage->update($request->all());
         $contentPage->categories()->sync($request->input('categories', []));
         $contentPage->tags()->sync($request->input('tags', []));
-        if ($request->input('featured_image', false)) {
-            if (!$contentPage->featured_image || $request->input('featured_image') !== $contentPage->featured_image->file_name) {
-                if ($contentPage->featured_image) {
-                    $contentPage->featured_image->delete();
+        if ($request->input('image', false)) {
+            if (!$contentPage->image || $request->input('image') !== $contentPage->image->file_name) {
+                if ($contentPage->image) {
+                    $contentPage->image->delete();
                 }
-                $contentPage->addMedia(storage_path('tmp/uploads/' . basename($request->input('featured_image'))))->toMediaCollection('featured_image');
+                $contentPage->addMedia(storage_path('tmp/uploads/' . basename($request->input('image'))))->toMediaCollection('image');
             }
-        } elseif ($contentPage->featured_image) {
-            $contentPage->featured_image->delete();
+        } elseif ($contentPage->image) {
+            $contentPage->image->delete();
+        }
+
+        if ($request->input('file', false)) {
+            if (!$contentPage->file || $request->input('file') !== $contentPage->file->file_name) {
+                if ($contentPage->file) {
+                    $contentPage->file->delete();
+                }
+                $contentPage->addMedia(storage_path('tmp/uploads/' . basename($request->input('file'))))->toMediaCollection('file');
+            }
+        } elseif ($contentPage->file) {
+            $contentPage->file->delete();
         }
 
         return (new ContentPageResource($contentPage))

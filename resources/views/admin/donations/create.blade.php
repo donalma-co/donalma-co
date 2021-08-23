@@ -17,7 +17,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('user'))
-                    <span class="text-danger">{{ $errors->first('user') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('user') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.donation.fields.user_helper') }}</span>
             </div>
@@ -29,7 +31,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('organization'))
-                    <span class="text-danger">{{ $errors->first('organization') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('organization') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.donation.fields.organization_helper') }}</span>
             </div>
@@ -37,7 +41,9 @@
                 <label for="amount">{{ trans('cruds.donation.fields.amount') }}</label>
                 <input class="form-control {{ $errors->has('amount') ? 'is-invalid' : '' }}" type="number" name="amount" id="amount" value="{{ old('amount', '') }}" step="0.01">
                 @if($errors->has('amount'))
-                    <span class="text-danger">{{ $errors->first('amount') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('amount') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.donation.fields.amount_helper') }}</span>
             </div>
@@ -48,7 +54,9 @@
                     <label class="form-check-label" for="certification">{{ trans('cruds.donation.fields.certification') }}</label>
                 </div>
                 @if($errors->has('certification'))
-                    <span class="text-danger">{{ $errors->first('certification') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('certification') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.donation.fields.certification_helper') }}</span>
             </div>
@@ -57,7 +65,9 @@
                 <div class="needsclick dropzone {{ $errors->has('file') ? 'is-invalid' : '' }}" id="file-dropzone">
                 </div>
                 @if($errors->has('file'))
-                    <span class="text-danger">{{ $errors->first('file') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('file') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.donation.fields.file_helper') }}</span>
             </div>

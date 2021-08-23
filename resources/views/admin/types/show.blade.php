@@ -51,6 +51,16 @@
                             @endforeach
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.type.fields.globals') }}
+                        </th>
+                        <td>
+                            @foreach($type->globals as $key => $globals)
+                                <span class="label label-info">{{ $globals->name }}</span>
+                            @endforeach
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">
@@ -62,22 +72,6 @@
     </div>
 </div>
 
-<div class="card">
-    <div class="card-header">
-        {{ trans('global.relatedData') }}
-    </div>
-    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
-        <li class="nav-item">
-            <a class="nav-link" href="#type_organizations" role="tab" data-toggle="tab">
-                {{ trans('cruds.organization.title') }}
-            </a>
-        </li>
-    </ul>
-    <div class="tab-content">
-        <div class="tab-pane" role="tabpanel" id="type_organizations">
-            @includeIf('admin.types.relationships.typeOrganizations', ['organizations' => $type->typeOrganizations])
-        </div>
-    </div>
-</div>
+
 
 @endsection

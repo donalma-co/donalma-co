@@ -12,7 +12,7 @@ Route::get('/home', function () {
 Route::get('userVerification/{token}', 'UserVerificationController@approve')->name('userVerification');
 Auth::routes();
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth', '2fa']], function () {
     Route::get('/', 'HomeController@index')->name('home');
     // Permissions
     Route::delete('permissions/destroy', 'PermissionsController@massDestroy')->name('permissions.massDestroy');
@@ -24,6 +24,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Users
     Route::delete('users/destroy', 'UsersController@massDestroy')->name('users.massDestroy');
+    Route::post('users/parse-csv-import', 'UsersController@parseCsvImport')->name('users.parseCsvImport');
+    Route::post('users/process-csv-import', 'UsersController@processCsvImport')->name('users.processCsvImport');
     Route::resource('users', 'UsersController');
 
     // Audit Logs
@@ -43,16 +45,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('content-pages/ckmedia', 'ContentPageController@storeCKEditorImages')->name('content-pages.storeCKEditorImages');
     Route::resource('content-pages', 'ContentPageController');
 
-    // Faq Category
-    Route::delete('faq-categories/destroy', 'FaqCategoryController@massDestroy')->name('faq-categories.massDestroy');
-    Route::resource('faq-categories', 'FaqCategoryController');
-
-    // Faq Question
-    Route::delete('faq-questions/destroy', 'FaqQuestionController@massDestroy')->name('faq-questions.massDestroy');
-    Route::resource('faq-questions', 'FaqQuestionController');
-
     // Departments
     Route::delete('departments/destroy', 'DepartmentsController@massDestroy')->name('departments.massDestroy');
+    Route::post('departments/parse-csv-import', 'DepartmentsController@parseCsvImport')->name('departments.parseCsvImport');
+    Route::post('departments/process-csv-import', 'DepartmentsController@processCsvImport')->name('departments.processCsvImport');
     Route::resource('departments', 'DepartmentsController');
 
     // Cities
@@ -102,14 +98,40 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('user-alerts/read', 'UserAlertsController@read');
     Route::resource('user-alerts', 'UserAlertsController', ['except' => ['edit', 'update']]);
 
+    // Global Obj
+    Route::delete('global-objs/destroy', 'GlobalObjController@massDestroy')->name('global-objs.massDestroy');
+    Route::resource('global-objs', 'GlobalObjController');
+
+    // Countries
+    Route::delete('countries/destroy', 'CountriesController@massDestroy')->name('countries.massDestroy');
+    Route::resource('countries', 'CountriesController');
+
+    // Events
+    Route::delete('events/destroy', 'EventsController@massDestroy')->name('events.massDestroy');
+    Route::post('events/media', 'EventsController@storeMedia')->name('events.storeMedia');
+    Route::post('events/ckmedia', 'EventsController@storeCKEditorImages')->name('events.storeCKEditorImages');
+    Route::post('events/parse-csv-import', 'EventsController@parseCsvImport')->name('events.parseCsvImport');
+    Route::post('events/process-csv-import', 'EventsController@processCsvImport')->name('events.processCsvImport');
+    Route::resource('events', 'EventsController');
+
     Route::get('system-calendar', 'SystemCalendarController@index')->name('systemCalendar');
+    Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');
 });
-Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
+Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth', '2fa']], function () {
     // Change password
     if (file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php'))) {
         Route::get('password', 'ChangePasswordController@edit')->name('password.edit');
         Route::post('password', 'ChangePasswordController@update')->name('password.update');
         Route::post('profile', 'ChangePasswordController@updateProfile')->name('password.updateProfile');
         Route::post('profile/destroy', 'ChangePasswordController@destroy')->name('password.destroyProfile');
+        Route::post('profile/two-factor', 'ChangePasswordController@toggleTwoFactor')->name('password.toggleTwoFactor');
+    }
+});
+Route::group(['namespace' => 'Auth', 'middleware' => ['auth', '2fa']], function () {
+    // Two Factor Authentication
+    if (file_exists(app_path('Http/Controllers/Auth/TwoFactorController.php'))) {
+        Route::get('two-factor', 'TwoFactorController@show')->name('twoFactor.show');
+        Route::post('two-factor', 'TwoFactorController@check')->name('twoFactor.check');
+        Route::get('two-factor/resend', 'TwoFactorController@resend')->name('twoFactor.resend');
     }
 });

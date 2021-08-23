@@ -42,11 +42,6 @@ class Type extends Model implements HasMedia
         $this->addMediaConversion('preview')->fit('crop', 120, 120);
     }
 
-    public function typeOrganizations()
-    {
-        return $this->hasMany(Organization::class, 'type_id', 'id');
-    }
-
     public function getImageAttribute()
     {
         $files = $this->getMedia('image');
@@ -57,6 +52,11 @@ class Type extends Model implements HasMedia
         });
 
         return $files;
+    }
+
+    public function globals()
+    {
+        return $this->belongsToMany(GlobalObj::class);
     }
 
     protected function serializeDate(DateTimeInterface $date)

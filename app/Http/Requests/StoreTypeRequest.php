@@ -25,6 +25,12 @@ class StoreTypeRequest extends FormRequest
                 'string',
                 'nullable',
             ],
+            'globals.*' => [
+                'integer',
+            ],
+            'globals' => [
+                'array',
+            ],
         ];
     }
 }

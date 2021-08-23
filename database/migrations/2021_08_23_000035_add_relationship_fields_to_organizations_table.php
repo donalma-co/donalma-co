@@ -9,8 +9,6 @@ class AddRelationshipFieldsToOrganizationsTable extends Migration
     public function up()
     {
         Schema::table('organizations', function (Blueprint $table) {
-            $table->unsignedBigInteger('type_id');
-            $table->foreign('type_id', 'type_fk_4019588')->references('id')->on('types');
             $table->unsignedBigInteger('dcoumenttype_id');
             $table->foreign('dcoumenttype_id', 'dcoumenttype_fk_4565179')->references('id')->on('document_types');
             $table->unsignedBigInteger('department_id');

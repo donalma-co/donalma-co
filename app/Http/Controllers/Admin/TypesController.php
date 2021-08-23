@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyTypeRequest;
 use App\Http\Requests\StoreTypeRequest;
 use App\Http\Requests\UpdateTypeRequest;
+use App\Models\GlobalObj;
 use App\Models\Type;
 use Gate;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ class TypesController extends Controller
     {
         abort_if(Gate::denies('type_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $types = Type::with(['media'])->get();
+        $types = Type::with(['globals', 'media'])->get();
 
         return view('admin.types.index', compact('types'));
     }
@@ -30,13 +31,15 @@ class TypesController extends Controller
     {
         abort_if(Gate::denies('type_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.types.create');
+        $globals = GlobalObj::pluck('name', 'id');
+
+        return view('admin.types.create', compact('globals'));
     }
 
     public function store(StoreTypeRequest $request)
     {
         $type = Type::create($request->all());
-
+        $type->globals()->sync($request->input('globals', []));
         foreach ($request->input('image', []) as $file) {
             $type->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('image');
         }
@@ -52,13 +55,17 @@ class TypesController extends Controller
     {
         abort_if(Gate::denies('type_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.types.edit', compact('type'));
+        $globals = GlobalObj::pluck('name', 'id');
+
+        $type->load('globals');
+
+        return view('admin.types.edit', compact('globals', 'type'));
     }
 
     public function update(UpdateTypeRequest $request, Type $type)
     {
         $type->update($request->all());
-
+        $type->globals()->sync($request->input('globals', []));
         if (count($type->image) > 0) {
             foreach ($type->image as $media) {
                 if (!in_array($media->file_name, $request->input('image', []))) {
@@ -80,7 +87,7 @@ class TypesController extends Controller
     {
         abort_if(Gate::denies('type_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $type->load('typeOrganizations');
+        $type->load('globals');
 
         return view('admin.types.show', compact('type'));
     }
