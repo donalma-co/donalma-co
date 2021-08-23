@@ -29,7 +29,7 @@ class OrganizationsController extends Controller
         abort_if(Gate::denies('organization_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Organization::with(['type', 'dcoumenttype', 'department', 'city'])->select(sprintf('%s.*', (new Organization())->table));
+            $query = Organization::with(['organization_types', 'dcoumenttype', 'department', 'city'])->select(sprintf('%s.*', (new Organization())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -56,10 +56,14 @@ class OrganizationsController extends Controller
             $table->editColumn('name', function ($row) {
                 return $row->name ? $row->name : '';
             });
-            $table->addColumn('type_name', function ($row) {
-                return $row->type ? $row->type->name : '';
-            });
+            $table->editColumn('organization_type', function ($row) {
+                $labels = [];
+                foreach ($row->organization_types as $organization_type) {
+                    $labels[] = sprintf('<span class="label label-info label-many">%s</span>', $organization_type->name);
+                }
 
+                return implode(' ', $labels);
+            });
             $table->editColumn('nit', function ($row) {
                 return $row->nit ? $row->nit : '';
             });
@@ -233,11 +237,14 @@ class OrganizationsController extends Controller
             $table->editColumn('status', function ($row) {
                 return $row->status ? Organization::STATUS_SELECT[$row->status] : '';
             });
+            $table->editColumn('featured', function ($row) {
+                return '<input type="checkbox" disabled ' . ($row->featured ? 'checked' : null) . '>';
+            });
             $table->editColumn('comments', function ($row) {
                 return $row->comments ? $row->comments : '';
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'type', 'dcoumenttype', 'department', 'city', 'national_tax_responsible', 'local_tax_responsible', 'big_taxpayer', 'seft_taxreteiner', 'rst_tax', 'donation_certificate_issuer', 'disclaimer', 'information_privacy_check', 'cc_file', 'rl_file', 'tp_file', 'ar_file', 'logo']);
+            $table->rawColumns(['actions', 'placeholder', 'organization_type', 'dcoumenttype', 'department', 'city', 'national_tax_responsible', 'local_tax_responsible', 'big_taxpayer', 'seft_taxreteiner', 'rst_tax', 'donation_certificate_issuer', 'disclaimer', 'information_privacy_check', 'cc_file', 'rl_file', 'tp_file', 'ar_file', 'logo', 'featured']);
 
             return $table->make(true);
         }
@@ -254,7 +261,7 @@ class OrganizationsController extends Controller
     {
         abort_if(Gate::denies('organization_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $types = Type::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $organization_types = Type::pluck('name', 'id');
 
         $dcoumenttypes = DocumentType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
@@ -262,13 +269,13 @@ class OrganizationsController extends Controller
 
         $cities = City::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.organizations.create', compact('types', 'dcoumenttypes', 'departments', 'cities'));
+        return view('admin.organizations.create', compact('organization_types', 'dcoumenttypes', 'departments', 'cities'));
     }
 
     public function store(StoreOrganizationRequest $request)
     {
         $organization = Organization::create($request->all());
-
+        $organization->organization_types()->sync($request->input('organization_types', []));
         if ($request->input('cc_file', false)) {
             $organization->addMedia(storage_path('tmp/uploads/' . basename($request->input('cc_file'))))->toMediaCollection('cc_file');
         }
@@ -300,7 +307,7 @@ class OrganizationsController extends Controller
     {
         abort_if(Gate::denies('organization_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $types = Type::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $organization_types = Type::pluck('name', 'id');
 
         $dcoumenttypes = DocumentType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
@@ -308,15 +315,15 @@ class OrganizationsController extends Controller
 
         $cities = City::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $organization->load('type', 'dcoumenttype', 'department', 'city');
+        $organization->load('organization_types', 'dcoumenttype', 'department', 'city');
 
-        return view('admin.organizations.edit', compact('types', 'dcoumenttypes', 'departments', 'cities', 'organization'));
+        return view('admin.organizations.edit', compact('organization_types', 'dcoumenttypes', 'departments', 'cities', 'organization'));
     }
 
     public function update(UpdateOrganizationRequest $request, Organization $organization)
     {
         $organization->update($request->all());
-
+        $organization->organization_types()->sync($request->input('organization_types', []));
         if ($request->input('cc_file', false)) {
             if (!$organization->cc_file || $request->input('cc_file') !== $organization->cc_file->file_name) {
                 if ($organization->cc_file) {
@@ -379,7 +386,7 @@ class OrganizationsController extends Controller
     {
         abort_if(Gate::denies('organization_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $organization->load('type', 'dcoumenttype', 'department', 'city', 'organizationDonations', 'organizationProjects');
+        $organization->load('organization_types', 'dcoumenttype', 'department', 'city', 'organizationDonations', 'organizationProjects', 'organizationUsers', 'organizationEvents');
 
         return view('admin.organizations.show', compact('organization'));
     }

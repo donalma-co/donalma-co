@@ -25,6 +25,12 @@ class UpdateTypeRequest extends FormRequest
                 'string',
                 'nullable',
             ],
+            'globals.*' => [
+                'integer',
+            ],
+            'globals' => [
+                'array',
+            ],
         ];
     }
 }

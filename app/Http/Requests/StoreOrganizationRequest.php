@@ -21,9 +21,12 @@ class StoreOrganizationRequest extends FormRequest
                 'string',
                 'required',
             ],
-            'type_id' => [
-                'required',
+            'organization_types.*' => [
                 'integer',
+            ],
+            'organization_types' => [
+                'required',
+                'array',
             ],
             'nit' => [
                 'required',

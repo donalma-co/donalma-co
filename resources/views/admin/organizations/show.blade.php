@@ -33,10 +33,12 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.organization.fields.type') }}
+                            {{ trans('cruds.organization.fields.organization_type') }}
                         </th>
                         <td>
-                            {{ $organization->type->name ?? '' }}
+                            @foreach($organization->organization_types as $key => $organization_type)
+                                <span class="label label-info">{{ $organization_type->name }}</span>
+                            @endforeach
                         </td>
                     </tr>
                     <tr>
@@ -509,6 +511,14 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.organization.fields.featured') }}
+                        </th>
+                        <td>
+                            <input type="checkbox" disabled="disabled" {{ $organization->featured ? 'checked' : '' }}>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.organization.fields.comments') }}
                         </th>
                         <td>
@@ -541,6 +551,16 @@
                 {{ trans('cruds.project.title') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#organization_users" role="tab" data-toggle="tab">
+                {{ trans('cruds.user.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#organization_events" role="tab" data-toggle="tab">
+                {{ trans('cruds.event.title') }}
+            </a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="organization_donations">
@@ -548,6 +568,12 @@
         </div>
         <div class="tab-pane" role="tabpanel" id="organization_projects">
             @includeIf('admin.organizations.relationships.organizationProjects', ['projects' => $organization->organizationProjects])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="organization_users">
+            @includeIf('admin.organizations.relationships.organizationUsers', ['users' => $organization->organizationUsers])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="organization_events">
+            @includeIf('admin.organizations.relationships.organizationEvents', ['events' => $organization->organizationEvents])
         </div>
     </div>
 </div>

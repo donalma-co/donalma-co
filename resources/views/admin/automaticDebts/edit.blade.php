@@ -18,7 +18,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('transaction'))
-                    <span class="text-danger">{{ $errors->first('transaction') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('transaction') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.automaticDebt.fields.transaction_helper') }}</span>
             </div>
@@ -29,7 +31,9 @@
                     <label class="form-check-label" for="active">{{ trans('cruds.automaticDebt.fields.active') }}</label>
                 </div>
                 @if($errors->has('active'))
-                    <span class="text-danger">{{ $errors->first('active') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('active') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.automaticDebt.fields.active_helper') }}</span>
             </div>

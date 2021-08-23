@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\DocumentType;
+use App\Models\Organization;
 use App\Models\Role;
 use App\Models\User;
 use Gate;
@@ -15,12 +18,14 @@ use Yajra\DataTables\Facades\DataTables;
 
 class UsersController extends Controller
 {
+    use CsvImportTrait;
+
     public function index(Request $request)
     {
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = User::with(['roles'])->select(sprintf('%s.*', (new User())->table));
+            $query = User::with(['documenttype', 'organization', 'roles'])->select(sprintf('%s.*', (new User())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -47,8 +52,25 @@ class UsersController extends Controller
             $table->editColumn('name', function ($row) {
                 return $row->name ? $row->name : '';
             });
+            $table->addColumn('documenttype_name', function ($row) {
+                return $row->documenttype ? $row->documenttype->name : '';
+            });
+
+            $table->editColumn('document', function ($row) {
+                return $row->document ? $row->document : '';
+            });
+            $table->addColumn('organization_name', function ($row) {
+                return $row->organization ? $row->organization->name : '';
+            });
+
+            $table->editColumn('two_factor', function ($row) {
+                return '<input type="checkbox" disabled ' . ($row->two_factor ? 'checked' : null) . '>';
+            });
             $table->editColumn('email', function ($row) {
                 return $row->email ? $row->email : '';
+            });
+            $table->editColumn('phone', function ($row) {
+                return $row->phone ? $row->phone : '';
             });
 
             $table->editColumn('verified', function ($row) {
@@ -62,8 +84,11 @@ class UsersController extends Controller
 
                 return implode(' ', $labels);
             });
+            $table->editColumn('featured', function ($row) {
+                return '<input type="checkbox" disabled ' . ($row->featured ? 'checked' : null) . '>';
+            });
 
-            $table->rawColumns(['actions', 'placeholder', 'verified', 'roles']);
+            $table->rawColumns(['actions', 'placeholder', 'documenttype', 'organization', 'two_factor', 'verified', 'roles', 'featured']);
 
             return $table->make(true);
         }
@@ -75,9 +100,13 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $documenttypes = DocumentType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $organizations = Organization::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
         $roles = Role::pluck('title', 'id');
 
-        return view('admin.users.create', compact('roles'));
+        return view('admin.users.create', compact('documenttypes', 'organizations', 'roles'));
     }
 
     public function store(StoreUserRequest $request)
@@ -92,11 +121,15 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $documenttypes = DocumentType::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $organizations = Organization::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
         $roles = Role::pluck('title', 'id');
 
-        $user->load('roles');
+        $user->load('documenttype', 'organization', 'roles');
 
-        return view('admin.users.edit', compact('roles', 'user'));
+        return view('admin.users.edit', compact('documenttypes', 'organizations', 'roles', 'user'));
     }
 
     public function update(UpdateUserRequest $request, User $user)
@@ -111,7 +144,7 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $user->load('roles', 'userDonations', 'userUserAlerts');
+        $user->load('documenttype', 'organization', 'roles', 'userDonations', 'userUserAlerts');
 
         return view('admin.users.show', compact('user'));
     }

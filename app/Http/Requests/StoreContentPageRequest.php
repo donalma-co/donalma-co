@@ -33,6 +33,10 @@ class StoreContentPageRequest extends FormRequest
             'tags' => [
                 'array',
             ],
+            'comments' => [
+                'string',
+                'nullable',
+            ],
         ];
     }
 }

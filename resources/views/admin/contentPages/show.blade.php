@@ -69,14 +69,42 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.contentPage.fields.featured_image') }}
+                            {{ trans('cruds.contentPage.fields.image') }}
                         </th>
                         <td>
-                            @if($contentPage->featured_image)
-                                <a href="{{ $contentPage->featured_image->getUrl() }}" target="_blank" style="display: inline-block">
-                                    <img src="{{ $contentPage->featured_image->getUrl('thumb') }}">
+                            @if($contentPage->image)
+                                <a href="{{ $contentPage->image->getUrl() }}" target="_blank" style="display: inline-block">
+                                    <img src="{{ $contentPage->image->getUrl('thumb') }}">
                                 </a>
                             @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.contentPage.fields.file') }}
+                        </th>
+                        <td>
+                            @if($contentPage->file)
+                                <a href="{{ $contentPage->file->getUrl() }}" target="_blank">
+                                    {{ trans('global.view_file') }}
+                                </a>
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.contentPage.fields.comments') }}
+                        </th>
+                        <td>
+                            {{ $contentPage->comments }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.contentPage.fields.status') }}
+                        </th>
+                        <td>
+                            {{ App\Models\ContentPage::STATUS_SELECT[$contentPage->status] ?? '' }}
                         </td>
                     </tr>
                 </tbody>

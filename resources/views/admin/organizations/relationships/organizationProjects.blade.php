@@ -1,102 +1,102 @@
-<div class="m-3">
-    @can('project_create')
-        <div style="margin-bottom: 10px;" class="row">
-            <div class="col-lg-12">
-                <a class="btn btn-success" href="{{ route('admin.projects.create') }}">
-                    {{ trans('global.add') }} {{ trans('cruds.project.title_singular') }}
-                </a>
-            </div>
+@can('project_create')
+    <div style="margin-bottom: 10px;" class="row">
+        <div class="col-lg-12">
+            <a class="btn btn-success" href="{{ route('admin.projects.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.project.title_singular') }}
+            </a>
         </div>
-    @endcan
-    <div class="card">
-        <div class="card-header">
-            {{ trans('cruds.project.title_singular') }} {{ trans('global.list') }}
-        </div>
+    </div>
+@endcan
 
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class=" table table-bordered table-striped table-hover datatable datatable-organizationProjects">
-                    <thead>
-                        <tr>
-                            <th width="10">
+<div class="card">
+    <div class="card-header">
+        {{ trans('cruds.project.title_singular') }} {{ trans('global.list') }}
+    </div>
 
-                            </th>
-                            <th>
-                                {{ trans('cruds.project.fields.id') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.project.fields.name') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.project.fields.organization') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.project.fields.description') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.project.fields.images') }}
-                            </th>
-                            <th>
-                                &nbsp;
-                            </th>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-organizationProjects">
+                <thead>
+                    <tr>
+                        <th width="10">
+
+                        </th>
+                        <th>
+                            {{ trans('cruds.project.fields.id') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.project.fields.name') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.project.fields.organization') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.project.fields.description') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.project.fields.images') }}
+                        </th>
+                        <th>
+                            &nbsp;
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($projects as $key => $project)
+                        <tr data-entry-id="{{ $project->id }}">
+                            <td>
+
+                            </td>
+                            <td>
+                                {{ $project->id ?? '' }}
+                            </td>
+                            <td>
+                                {{ $project->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $project->organization->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $project->description ?? '' }}
+                            </td>
+                            <td>
+                                @foreach($project->images as $key => $media)
+                                    <a href="{{ $media->getUrl() }}" target="_blank" style="display: inline-block">
+                                        <img src="{{ $media->getUrl('thumb') }}">
+                                    </a>
+                                @endforeach
+                            </td>
+                            <td>
+                                @can('project_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.projects.show', $project->id) }}">
+                                        {{ trans('global.view') }}
+                                    </a>
+                                @endcan
+
+                                @can('project_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.projects.edit', $project->id) }}">
+                                        {{ trans('global.edit') }}
+                                    </a>
+                                @endcan
+
+                                @can('project_delete')
+                                    <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                    </form>
+                                @endcan
+
+                            </td>
+
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($projects as $key => $project)
-                            <tr data-entry-id="{{ $project->id }}">
-                                <td>
-
-                                </td>
-                                <td>
-                                    {{ $project->id ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $project->name ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $project->organization->name ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $project->description ?? '' }}
-                                </td>
-                                <td>
-                                    @foreach($project->images as $key => $media)
-                                        <a href="{{ $media->getUrl() }}" target="_blank" style="display: inline-block">
-                                            <img src="{{ $media->getUrl('thumb') }}">
-                                        </a>
-                                    @endforeach
-                                </td>
-                                <td>
-                                    @can('project_show')
-                                        <a class="btn btn-xs btn-primary" href="{{ route('admin.projects.show', $project->id) }}">
-                                            {{ trans('global.view') }}
-                                        </a>
-                                    @endcan
-
-                                    @can('project_edit')
-                                        <a class="btn btn-xs btn-info" href="{{ route('admin.projects.edit', $project->id) }}">
-                                            {{ trans('global.edit') }}
-                                        </a>
-                                    @endcan
-
-                                    @can('project_delete')
-                                        <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                            <input type="hidden" name="_method" value="DELETE">
-                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                            <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                        </form>
-                                    @endcan
-
-                                </td>
-
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+
 @section('scripts')
 @parent
 <script>

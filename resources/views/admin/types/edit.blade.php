@@ -14,7 +14,9 @@
                 <label for="name">{{ trans('cruds.type.fields.name') }}</label>
                 <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', $type->name) }}">
                 @if($errors->has('name'))
-                    <span class="text-danger">{{ $errors->first('name') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('name') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.type.fields.name_helper') }}</span>
             </div>
@@ -22,7 +24,9 @@
                 <label for="code">{{ trans('cruds.type.fields.code') }}</label>
                 <input class="form-control {{ $errors->has('code') ? 'is-invalid' : '' }}" type="text" name="code" id="code" value="{{ old('code', $type->code) }}">
                 @if($errors->has('code'))
-                    <span class="text-danger">{{ $errors->first('code') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('code') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.type.fields.code_helper') }}</span>
             </div>
@@ -31,9 +35,29 @@
                 <div class="needsclick dropzone {{ $errors->has('image') ? 'is-invalid' : '' }}" id="image-dropzone">
                 </div>
                 @if($errors->has('image'))
-                    <span class="text-danger">{{ $errors->first('image') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('image') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.type.fields.image_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="globals">{{ trans('cruds.type.fields.globals') }}</label>
+                <div style="padding-bottom: 4px">
+                    <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
+                    <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
+                </div>
+                <select class="form-control select2 {{ $errors->has('globals') ? 'is-invalid' : '' }}" name="globals[]" id="globals" multiple>
+                    @foreach($globals as $id => $global)
+                        <option value="{{ $id }}" {{ (in_array($id, old('globals', [])) || $type->globals->contains($id)) ? 'selected' : '' }}>{{ $global }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('globals'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('globals') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.type.fields.globals_helper') }}</span>
             </div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">

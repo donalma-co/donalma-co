@@ -20,13 +20,13 @@ class TypesApiController extends Controller
     {
         abort_if(Gate::denies('type_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new TypeResource(Type::all());
+        return new TypeResource(Type::with(['globals'])->get());
     }
 
     public function store(StoreTypeRequest $request)
     {
         $type = Type::create($request->all());
-
+        $type->globals()->sync($request->input('globals', []));
         if ($request->input('image', false)) {
             $type->addMedia(storage_path('tmp/uploads/' . basename($request->input('image'))))->toMediaCollection('image');
         }
@@ -40,13 +40,13 @@ class TypesApiController extends Controller
     {
         abort_if(Gate::denies('type_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new TypeResource($type);
+        return new TypeResource($type->load(['globals']));
     }
 
     public function update(UpdateTypeRequest $request, Type $type)
     {
         $type->update($request->all());
-
+        $type->globals()->sync($request->input('globals', []));
         if ($request->input('image', false)) {
             if (!$type->image || $request->input('image') !== $type->image->file_name) {
                 if ($type->image) {

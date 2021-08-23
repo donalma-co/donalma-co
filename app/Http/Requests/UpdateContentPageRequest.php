@@ -33,6 +33,10 @@ class UpdateContentPageRequest extends FormRequest
             'tags' => [
                 'array',
             ],
+            'comments' => [
+                'string',
+                'nullable',
+            ],
         ];
     }
 }

@@ -54,7 +54,6 @@ class Organization extends Model implements HasMedia
 
     protected $fillable = [
         'name',
-        'type_id',
         'nit',
         'legal_representant',
         'dcoumenttype_id',
@@ -106,6 +105,7 @@ class Organization extends Model implements HasMedia
         'embed_video',
         'tags',
         'status',
+        'featured',
         'comments',
         'created_at',
         'updated_at',
@@ -128,9 +128,19 @@ class Organization extends Model implements HasMedia
         return $this->hasMany(Project::class, 'organization_id', 'id');
     }
 
-    public function type()
+    public function organizationUsers()
     {
-        return $this->belongsTo(Type::class, 'type_id');
+        return $this->hasMany(User::class, 'organization_id', 'id');
+    }
+
+    public function organizationEvents()
+    {
+        return $this->hasMany(Event::class, 'organization_id', 'id');
+    }
+
+    public function organization_types()
+    {
+        return $this->belongsToMany(Type::class);
     }
 
     public function dcoumenttype()

@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'site_title' => 'Fundaciones',
+    'site_title' => 'Donalma',
 ];

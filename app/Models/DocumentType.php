@@ -28,6 +28,11 @@ class DocumentType extends Model
         'deleted_at',
     ];
 
+    public function documenttypeUsers()
+    {
+        return $this->hasMany(User::class, 'documenttype_id', 'id');
+    }
+
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');

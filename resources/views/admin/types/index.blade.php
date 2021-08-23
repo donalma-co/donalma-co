@@ -35,6 +35,9 @@
                             {{ trans('cruds.type.fields.image') }}
                         </th>
                         <th>
+                            {{ trans('cruds.type.fields.globals') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -59,6 +62,11 @@
                                     <a href="{{ $media->getUrl() }}" target="_blank" style="display: inline-block">
                                         <img src="{{ $media->getUrl('thumb') }}">
                                     </a>
+                                @endforeach
+                            </td>
+                            <td>
+                                @foreach($type->globals as $key => $item)
+                                    <span class="badge badge-info">{{ $item->name }}</span>
                                 @endforeach
                             </td>
                             <td>

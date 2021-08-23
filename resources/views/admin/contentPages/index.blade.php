@@ -38,7 +38,16 @@
                             {{ trans('cruds.contentPage.fields.excerpt') }}
                         </th>
                         <th>
-                            {{ trans('cruds.contentPage.fields.featured_image') }}
+                            {{ trans('cruds.contentPage.fields.image') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.contentPage.fields.file') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.contentPage.fields.comments') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.contentPage.fields.status') }}
                         </th>
                         <th>
                             &nbsp;
@@ -71,11 +80,24 @@
                                 {{ $contentPage->excerpt ?? '' }}
                             </td>
                             <td>
-                                @if($contentPage->featured_image)
-                                    <a href="{{ $contentPage->featured_image->getUrl() }}" target="_blank" style="display: inline-block">
-                                        <img src="{{ $contentPage->featured_image->getUrl('thumb') }}">
+                                @if($contentPage->image)
+                                    <a href="{{ $contentPage->image->getUrl() }}" target="_blank" style="display: inline-block">
+                                        <img src="{{ $contentPage->image->getUrl('thumb') }}">
                                     </a>
                                 @endif
+                            </td>
+                            <td>
+                                @if($contentPage->file)
+                                    <a href="{{ $contentPage->file->getUrl() }}" target="_blank">
+                                        {{ trans('global.view_file') }}
+                                    </a>
+                                @endif
+                            </td>
+                            <td>
+                                {{ $contentPage->comments ?? '' }}
+                            </td>
+                            <td>
+                                {{ App\Models\ContentPage::STATUS_SELECT[$contentPage->status] ?? '' }}
                             </td>
                             <td>
                                 @can('content_page_show')

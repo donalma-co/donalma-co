@@ -148,254 +148,270 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 35,
-                'title' => 'faq_management_access',
-            ],
-            [
-                'id'    => 36,
-                'title' => 'faq_category_create',
-            ],
-            [
-                'id'    => 37,
-                'title' => 'faq_category_edit',
-            ],
-            [
-                'id'    => 38,
-                'title' => 'faq_category_show',
-            ],
-            [
-                'id'    => 39,
-                'title' => 'faq_category_delete',
-            ],
-            [
-                'id'    => 40,
-                'title' => 'faq_category_access',
-            ],
-            [
-                'id'    => 41,
-                'title' => 'faq_question_create',
-            ],
-            [
-                'id'    => 42,
-                'title' => 'faq_question_edit',
-            ],
-            [
-                'id'    => 43,
-                'title' => 'faq_question_show',
-            ],
-            [
-                'id'    => 44,
-                'title' => 'faq_question_delete',
-            ],
-            [
-                'id'    => 45,
-                'title' => 'faq_question_access',
-            ],
-            [
-                'id'    => 46,
                 'title' => 'global_var_access',
             ],
             [
-                'id'    => 47,
+                'id'    => 36,
                 'title' => 'department_create',
             ],
             [
-                'id'    => 48,
+                'id'    => 37,
                 'title' => 'department_edit',
             ],
             [
-                'id'    => 49,
+                'id'    => 38,
                 'title' => 'department_show',
             ],
             [
-                'id'    => 50,
+                'id'    => 39,
                 'title' => 'department_delete',
             ],
             [
-                'id'    => 51,
+                'id'    => 40,
                 'title' => 'department_access',
             ],
             [
-                'id'    => 52,
+                'id'    => 41,
                 'title' => 'city_create',
             ],
             [
-                'id'    => 53,
+                'id'    => 42,
                 'title' => 'city_edit',
             ],
             [
-                'id'    => 54,
+                'id'    => 43,
                 'title' => 'city_show',
             ],
             [
-                'id'    => 55,
+                'id'    => 44,
                 'title' => 'city_delete',
             ],
             [
-                'id'    => 56,
+                'id'    => 45,
                 'title' => 'city_access',
             ],
             [
-                'id'    => 57,
+                'id'    => 46,
                 'title' => 'document_type_create',
             ],
             [
-                'id'    => 58,
+                'id'    => 47,
                 'title' => 'document_type_edit',
             ],
             [
-                'id'    => 59,
+                'id'    => 48,
                 'title' => 'document_type_show',
             ],
             [
-                'id'    => 60,
+                'id'    => 49,
                 'title' => 'document_type_delete',
             ],
             [
-                'id'    => 61,
+                'id'    => 50,
                 'title' => 'document_type_access',
             ],
             [
-                'id'    => 62,
+                'id'    => 51,
                 'title' => 'foundation_access',
             ],
             [
-                'id'    => 63,
+                'id'    => 52,
                 'title' => 'type_create',
             ],
             [
-                'id'    => 64,
+                'id'    => 53,
                 'title' => 'type_edit',
             ],
             [
-                'id'    => 65,
+                'id'    => 54,
                 'title' => 'type_show',
             ],
             [
-                'id'    => 66,
+                'id'    => 55,
                 'title' => 'type_delete',
             ],
             [
-                'id'    => 67,
+                'id'    => 56,
                 'title' => 'type_access',
             ],
             [
-                'id'    => 68,
+                'id'    => 57,
                 'title' => 'organization_create',
             ],
             [
-                'id'    => 69,
+                'id'    => 58,
                 'title' => 'organization_edit',
             ],
             [
-                'id'    => 70,
+                'id'    => 59,
                 'title' => 'organization_show',
             ],
             [
-                'id'    => 71,
+                'id'    => 60,
                 'title' => 'organization_delete',
             ],
             [
-                'id'    => 72,
+                'id'    => 61,
                 'title' => 'organization_access',
             ],
             [
-                'id'    => 73,
+                'id'    => 62,
                 'title' => 'donation_create',
             ],
             [
-                'id'    => 74,
+                'id'    => 63,
                 'title' => 'donation_edit',
             ],
             [
-                'id'    => 75,
+                'id'    => 64,
                 'title' => 'donation_show',
             ],
             [
-                'id'    => 76,
+                'id'    => 65,
                 'title' => 'donation_delete',
             ],
             [
-                'id'    => 77,
+                'id'    => 66,
                 'title' => 'donation_access',
             ],
             [
-                'id'    => 78,
+                'id'    => 67,
                 'title' => 'transaction_create',
             ],
             [
-                'id'    => 79,
+                'id'    => 68,
                 'title' => 'transaction_edit',
             ],
             [
-                'id'    => 80,
+                'id'    => 69,
                 'title' => 'transaction_show',
             ],
             [
-                'id'    => 81,
+                'id'    => 70,
                 'title' => 'transaction_delete',
             ],
             [
-                'id'    => 82,
+                'id'    => 71,
                 'title' => 'transaction_access',
             ],
             [
-                'id'    => 83,
+                'id'    => 72,
                 'title' => 'project_create',
             ],
             [
-                'id'    => 84,
+                'id'    => 73,
                 'title' => 'project_edit',
             ],
             [
-                'id'    => 85,
+                'id'    => 74,
                 'title' => 'project_show',
             ],
             [
-                'id'    => 86,
+                'id'    => 75,
                 'title' => 'project_delete',
             ],
             [
-                'id'    => 87,
+                'id'    => 76,
                 'title' => 'project_access',
             ],
             [
-                'id'    => 88,
+                'id'    => 77,
                 'title' => 'automatic_debt_create',
             ],
             [
-                'id'    => 89,
+                'id'    => 78,
                 'title' => 'automatic_debt_edit',
             ],
             [
-                'id'    => 90,
+                'id'    => 79,
                 'title' => 'automatic_debt_show',
             ],
             [
-                'id'    => 91,
+                'id'    => 80,
                 'title' => 'automatic_debt_delete',
             ],
             [
-                'id'    => 92,
+                'id'    => 81,
                 'title' => 'automatic_debt_access',
             ],
             [
-                'id'    => 93,
+                'id'    => 82,
                 'title' => 'user_alert_create',
             ],
             [
-                'id'    => 94,
+                'id'    => 83,
                 'title' => 'user_alert_show',
             ],
             [
-                'id'    => 95,
+                'id'    => 84,
                 'title' => 'user_alert_delete',
             ],
             [
-                'id'    => 96,
+                'id'    => 85,
                 'title' => 'user_alert_access',
             ],
             [
+                'id'    => 86,
+                'title' => 'global_obj_create',
+            ],
+            [
+                'id'    => 87,
+                'title' => 'global_obj_edit',
+            ],
+            [
+                'id'    => 88,
+                'title' => 'global_obj_show',
+            ],
+            [
+                'id'    => 89,
+                'title' => 'global_obj_delete',
+            ],
+            [
+                'id'    => 90,
+                'title' => 'global_obj_access',
+            ],
+            [
+                'id'    => 91,
+                'title' => 'country_create',
+            ],
+            [
+                'id'    => 92,
+                'title' => 'country_edit',
+            ],
+            [
+                'id'    => 93,
+                'title' => 'country_show',
+            ],
+            [
+                'id'    => 94,
+                'title' => 'country_delete',
+            ],
+            [
+                'id'    => 95,
+                'title' => 'country_access',
+            ],
+            [
+                'id'    => 96,
+                'title' => 'event_create',
+            ],
+            [
                 'id'    => 97,
+                'title' => 'event_edit',
+            ],
+            [
+                'id'    => 98,
+                'title' => 'event_show',
+            ],
+            [
+                'id'    => 99,
+                'title' => 'event_delete',
+            ],
+            [
+                'id'    => 100,
+                'title' => 'event_access',
+            ],
+            [
+                'id'    => 101,
                 'title' => 'profile_password_edit',
             ],
         ];

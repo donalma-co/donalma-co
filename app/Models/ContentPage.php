@@ -16,10 +16,16 @@ class ContentPage extends Model implements HasMedia
     use InteractsWithMedia;
     use HasFactory;
 
+    public const STATUS_SELECT = [
+        'created'   => 'Creada',
+        'published' => 'Publicada',
+    ];
+
     public $table = 'content_pages';
 
     protected $appends = [
-        'featured_image',
+        'image',
+        'file',
     ];
 
     protected $dates = [
@@ -32,6 +38,8 @@ class ContentPage extends Model implements HasMedia
         'title',
         'page_text',
         'excerpt',
+        'comments',
+        'status',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -53,9 +61,9 @@ class ContentPage extends Model implements HasMedia
         return $this->belongsToMany(ContentTag::class);
     }
 
-    public function getFeaturedImageAttribute()
+    public function getImageAttribute()
     {
-        $file = $this->getMedia('featured_image')->last();
+        $file = $this->getMedia('image')->last();
         if ($file) {
             $file->url       = $file->getUrl();
             $file->thumbnail = $file->getUrl('thumb');
@@ -63,6 +71,11 @@ class ContentPage extends Model implements HasMedia
         }
 
         return $file;
+    }
+
+    public function getFileAttribute()
+    {
+        return $this->getMedia('file')->last();
     }
 
     protected function serializeDate(DateTimeInterface $date)

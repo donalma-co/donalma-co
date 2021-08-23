@@ -6,6 +6,10 @@
             <a class="btn btn-success" href="{{ route('admin.users.create') }}">
                 {{ trans('global.add') }} {{ trans('cruds.user.title_singular') }}
             </a>
+            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                {{ trans('global.app_csvImport') }}
+            </button>
+            @include('csvImport.modal', ['model' => 'User', 'route' => 'admin.users.parseCsvImport'])
         </div>
     </div>
 @endcan
@@ -28,7 +32,22 @@
                         {{ trans('cruds.user.fields.name') }}
                     </th>
                     <th>
+                        {{ trans('cruds.user.fields.documenttype') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.user.fields.document') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.user.fields.organization') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.user.fields.two_factor') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.user.fields.email') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.user.fields.phone') }}
                     </th>
                     <th>
                         {{ trans('cruds.user.fields.email_verified_at') }}
@@ -38,6 +57,9 @@
                     </th>
                     <th>
                         {{ trans('cruds.user.fields.roles') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.user.fields.featured') }}
                     </th>
                     <th>
                         &nbsp;
@@ -97,10 +119,16 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'name', name: 'name' },
+{ data: 'documenttype_name', name: 'documenttype.name' },
+{ data: 'document', name: 'document' },
+{ data: 'organization_name', name: 'organization.name' },
+{ data: 'two_factor', name: 'two_factor' },
 { data: 'email', name: 'email' },
+{ data: 'phone', name: 'phone' },
 { data: 'email_verified_at', name: 'email_verified_at' },
 { data: 'verified', name: 'verified' },
 { data: 'roles', name: 'roles.title' },
+{ data: 'featured', name: 'featured' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,
